@@ -9,17 +9,17 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    var gridValues = Array(repeating: false, count: 100)
+    @IBOutlet weak var button00: UIButton!
+    @IBOutlet weak var button01: UIButton!
+    @IBOutlet weak var button02: UIButton!
+    @IBOutlet weak var button03: UIButton!
+    @IBOutlet weak var button04: UIButton!
+    @IBOutlet weak var button05: UIButton!
+    @IBOutlet weak var button06: UIButton!
+    @IBOutlet weak var button07: UIButton!
+    @IBOutlet weak var button08: UIButton!
+    @IBOutlet weak var button09: UIButton!
     
-    @IBOutlet weak var button1: UIButton!
-    @IBOutlet weak var button2: UIButton!
-    @IBOutlet weak var button3: UIButton!
-    @IBOutlet weak var button4: UIButton!
-    @IBOutlet weak var button5: UIButton!
-    @IBOutlet weak var button6: UIButton!
-    @IBOutlet weak var button7: UIButton!
-    @IBOutlet weak var button8: UIButton!
-    @IBOutlet weak var button9: UIButton!
     @IBOutlet weak var button10: UIButton!
     @IBOutlet weak var button11: UIButton!
     @IBOutlet weak var button12: UIButton!
@@ -30,6 +30,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var button17: UIButton!
     @IBOutlet weak var button18: UIButton!
     @IBOutlet weak var button19: UIButton!
+    
     @IBOutlet weak var button20: UIButton!
     @IBOutlet weak var button21: UIButton!
     @IBOutlet weak var button22: UIButton!
@@ -40,22 +41,19 @@ class ViewController: UIViewController {
     @IBOutlet weak var button27: UIButton!
     @IBOutlet weak var button28: UIButton!
     @IBOutlet weak var button29: UIButton!
+    
     @IBOutlet weak var button30: UIButton!
-    @IBOutlet weak var button31: UIButton!
-    @IBOutlet weak var button32: UIButton!
-    @IBOutlet weak var button33: UIButton!
-    @IBOutlet weak var button34: UIButton!
-    @IBOutlet weak var button35: UIButton!
-    @IBOutlet weak var button36: UIButton!
-    @IBOutlet weak var button37: UIButton!
-    @IBOutlet weak var button38: UIButton!
-    @IBOutlet weak var button39: UIButton!
-    @IBOutlet weak var button40: UIButton!
     
     
     
     
-
+    
+    
+    
+    
+    
+    var lifeManager = LifeManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -65,31 +63,43 @@ class ViewController: UIViewController {
         
         print(sender.tag)
         
+        let row = sender.tag / 10
+        let col = sender.tag % 10
+        
         if sender.titleLabel?.text == "O" {
             sender.setTitle("X", for: UIControl.State.normal)
-            gridValues[sender.tag - 1] = true
+            lifeManager.matrix[row][col] = 1
         } else {
             sender.setTitle("O", for: UIControl.State.normal)
-            gridValues[sender.tag - 1] = false
+            lifeManager.matrix[row][col] = 0
         }
         
-        
-    
     }
     
     
     @IBAction func goButtonPressed(_ sender: UIButton) {
         
-        print(gridValues)
-        
+        lifeManager.updateMatrix()
+        print(lifeManager.matrix[0])
+        print(lifeManager.matrix[1])
+        print(lifeManager.matrix[2])
+        print(lifeManager.matrix[3])
+        print(lifeManager.matrix[4])
+        print(lifeManager.matrix[5])
+        print(lifeManager.matrix[6])
+        print(lifeManager.matrix[7])
+        print(lifeManager.matrix[8])
+        print(lifeManager.matrix[9])
+        print("------------------------------")
+        updateDisplay()
     }
     
-    
+
     func updateDisplay() {
         
+        
+        
       
-        
-        
     }
     
     
