@@ -37,13 +37,22 @@ struct LifeManager {
         if row < 9              {neighborCount += matrix[row + 1][col]}         // down neighbor
         if row < 9 && col < 9   {neighborCount += matrix[row + 1][col + 1]}     // down right neighbor
         
- 
-        if neighborCount == 2 || neighborCount == 3 {
-            return 1
+        
+        
+        if matrix[row][col] == 1 {
+            if neighborCount == 2 || neighborCount == 3 {
+                return 1
+            } else {
+                return 0
+            }
         } else {
-            return 0
+            if neighborCount == 3 {
+                return 1
+            } else {
+                return 0
+            }
         }
-   
+        
     }
     
     

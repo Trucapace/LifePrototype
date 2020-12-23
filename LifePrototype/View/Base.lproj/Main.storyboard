@@ -789,7 +789,6 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="buttion89" destination="4G0-r7-6HO" id="SD6-en-xk2"/>
                         <outlet property="button00" destination="Ml2-3k-jN1" id="6Pr-wR-DCx"/>
                         <outlet property="button01" destination="M0a-tP-bOD" id="g3M-7l-vya"/>
                         <outlet property="button02" destination="doZ-1h-2Vh" id="7ur-Gy-N9d"/>
@@ -879,6 +878,7 @@
                         <outlet property="button86" destination="45j-v0-MTr" id="Wlb-w1-qpy"/>
                         <outlet property="button87" destination="q4A-63-PzC" id="7nQ-7K-pnE"/>
                         <outlet property="button88" destination="Tvc-ws-IKD" id="NAU-bT-8Bj"/>
+                        <outlet property="button89" destination="4G0-r7-6HO" id="SD6-en-xk2"/>
                         <outlet property="button90" destination="IPj-ed-6pe" id="m3r-Mj-lVV"/>
                         <outlet property="button91" destination="YiX-2X-uk0" id="scL-a9-igG"/>
                         <outlet property="button92" destination="Ml0-sO-zrP" id="UEe-Mj-CNd"/>

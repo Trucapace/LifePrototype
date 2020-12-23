@@ -106,7 +106,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var button86: UIButton!
     @IBOutlet weak var button87: UIButton!
     @IBOutlet weak var button88: UIButton!
-    @IBOutlet weak var buttion89: UIButton!
+    @IBOutlet weak var button89: UIButton!
     
     @IBOutlet weak var button90: UIButton!
     @IBOutlet weak var button91: UIButton!
@@ -119,13 +119,18 @@ class ViewController: UIViewController {
     @IBOutlet weak var button98: UIButton!
     @IBOutlet weak var button99: UIButton!
     
+    var buttonMatrix = [[UIButton]](repeating: [UIButton](repeating: UIButton(), count: 10), count: 10)
     
     
     var lifeManager = LifeManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        fillButtonMatrix()
+        
+  
+        
     }
 
     @IBAction func gridButtonPressed(_ sender: UIButton) {
@@ -136,10 +141,12 @@ class ViewController: UIViewController {
         let col = sender.tag % 10
         
         if sender.titleLabel?.text == "O" {
-            sender.setTitle("X", for: UIControl.State.normal)
+//            sender.setTitle("X", for: .normal)
+            sender.backgroundColor = .cyan
             lifeManager.matrix[row][col] = 1
         } else {
-            sender.setTitle("O", for: UIControl.State.normal)
+//            sender.setTitle("O", for: .normal)
+            sender.backgroundColor = .white
             lifeManager.matrix[row][col] = 0
         }
         
@@ -166,9 +173,137 @@ class ViewController: UIViewController {
 
     func updateDisplay() {
         
+        for row in 0...9 {
+            for col in 0...9 {
+                
+                if lifeManager.matrix[row][col] == 1 {
+//                    buttonMatrix[row][col].setTitle("X", for: .normal)
+                    buttonMatrix[row][col].backgroundColor = .cyan
+                } else {
+//                    buttonMatrix[row][col].setTitle("O", for: .normal)
+                    buttonMatrix[row][col].backgroundColor = .white
+                }
+            }
+        }
+        
+        
+        
         
         
       
+    }
+    
+    func fillButtonMatrix() {
+        
+        buttonMatrix[0][0] = button00
+        buttonMatrix[0][1] = button01
+        buttonMatrix[0][2] = button02
+        buttonMatrix[0][3] = button03
+        buttonMatrix[0][4] = button04
+        buttonMatrix[0][5] = button05
+        buttonMatrix[0][6] = button06
+        buttonMatrix[0][7] = button07
+        buttonMatrix[0][8] = button08
+        buttonMatrix[0][9] = button09
+        
+        buttonMatrix[1][0] = button10
+        buttonMatrix[1][1] = button11
+        buttonMatrix[1][2] = button12
+        buttonMatrix[1][3] = button13
+        buttonMatrix[1][4] = button14
+        buttonMatrix[1][5] = button15
+        buttonMatrix[1][6] = button16
+        buttonMatrix[1][7] = button17
+        buttonMatrix[1][8] = button18
+        buttonMatrix[1][9] = button19
+        
+        buttonMatrix[2][0] = button20
+        buttonMatrix[2][1] = button21
+        buttonMatrix[2][2] = button22
+        buttonMatrix[2][3] = button23
+        buttonMatrix[2][4] = button24
+        buttonMatrix[2][5] = button25
+        buttonMatrix[2][6] = button26
+        buttonMatrix[2][7] = button27
+        buttonMatrix[2][8] = button28
+        buttonMatrix[2][9] = button29
+        
+        buttonMatrix[3][0] = button30
+        buttonMatrix[3][1] = button31
+        buttonMatrix[3][2] = button32
+        buttonMatrix[3][3] = button33
+        buttonMatrix[3][4] = button34
+        buttonMatrix[3][5] = button35
+        buttonMatrix[3][6] = button36
+        buttonMatrix[3][7] = button37
+        buttonMatrix[3][8] = button38
+        buttonMatrix[3][9] = button39
+        
+        buttonMatrix[4][0] = button40
+        buttonMatrix[4][1] = button41
+        buttonMatrix[4][2] = button42
+        buttonMatrix[4][3] = button43
+        buttonMatrix[4][4] = button44
+        buttonMatrix[4][5] = button45
+        buttonMatrix[4][6] = button46
+        buttonMatrix[4][7] = button47
+        buttonMatrix[4][8] = button48
+        buttonMatrix[4][9] = button49
+        
+        buttonMatrix[5][0] = button50
+        buttonMatrix[5][1] = button51
+        buttonMatrix[5][2] = button52
+        buttonMatrix[5][3] = button53
+        buttonMatrix[5][4] = button54
+        buttonMatrix[5][5] = button55
+        buttonMatrix[5][6] = button56
+        buttonMatrix[5][7] = button57
+        buttonMatrix[5][8] = button58
+        buttonMatrix[5][9] = button59
+        
+        buttonMatrix[6][0] = button60
+        buttonMatrix[6][1] = button61
+        buttonMatrix[6][2] = button62
+        buttonMatrix[6][3] = button63
+        buttonMatrix[6][4] = button64
+        buttonMatrix[6][5] = button65
+        buttonMatrix[6][6] = button66
+        buttonMatrix[6][7] = button67
+        buttonMatrix[6][8] = button68
+        buttonMatrix[6][9] = button69
+        
+        buttonMatrix[7][0] = button70
+        buttonMatrix[7][1] = button71
+        buttonMatrix[7][2] = button72
+        buttonMatrix[7][3] = button73
+        buttonMatrix[7][4] = button74
+        buttonMatrix[7][5] = button75
+        buttonMatrix[7][6] = button76
+        buttonMatrix[7][7] = button77
+        buttonMatrix[7][8] = button78
+        buttonMatrix[7][9] = button79
+        
+        buttonMatrix[8][0] = button80
+        buttonMatrix[8][1] = button81
+        buttonMatrix[8][2] = button82
+        buttonMatrix[8][3] = button83
+        buttonMatrix[8][4] = button84
+        buttonMatrix[8][5] = button85
+        buttonMatrix[8][6] = button86
+        buttonMatrix[8][7] = button87
+        buttonMatrix[8][8] = button88
+        buttonMatrix[8][9] = button89
+        
+        buttonMatrix[9][0] = button90
+        buttonMatrix[9][1] = button91
+        buttonMatrix[9][2] = button92
+        buttonMatrix[9][3] = button93
+        buttonMatrix[9][4] = button94
+        buttonMatrix[9][5] = button95
+        buttonMatrix[9][6] = button96
+        buttonMatrix[9][7] = button97
+        buttonMatrix[9][8] = button98
+        buttonMatrix[9][9] = button99
     }
     
     
