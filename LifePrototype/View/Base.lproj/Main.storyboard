@@ -789,6 +789,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="buttion89" destination="4G0-r7-6HO" id="SD6-en-xk2"/>
                         <outlet property="button00" destination="Ml2-3k-jN1" id="6Pr-wR-DCx"/>
                         <outlet property="button01" destination="M0a-tP-bOD" id="g3M-7l-vya"/>
                         <outlet property="button02" destination="doZ-1h-2Vh" id="7ur-Gy-N9d"/>
@@ -820,6 +821,74 @@
                         <outlet property="button28" destination="XPu-hj-Zxx" id="Y9s-2q-X1o"/>
                         <outlet property="button29" destination="aej-VW-FtG" id="Kjo-ta-3pF"/>
                         <outlet property="button30" destination="4Qw-n6-keb" id="Lsd-l9-jKA"/>
+                        <outlet property="button31" destination="cGp-MV-pes" id="cj6-me-IRM"/>
+                        <outlet property="button32" destination="A6M-tH-qq6" id="j5G-GS-j6Q"/>
+                        <outlet property="button33" destination="yK1-cS-yZI" id="4wI-jt-OQA"/>
+                        <outlet property="button34" destination="nko-wQ-9ol" id="GUW-5l-r1g"/>
+                        <outlet property="button35" destination="YFD-vs-nju" id="nrb-g7-KkJ"/>
+                        <outlet property="button36" destination="tdS-E2-yPJ" id="OBI-ml-P1h"/>
+                        <outlet property="button37" destination="2wg-Qf-NSF" id="BJ5-Zl-Qfo"/>
+                        <outlet property="button38" destination="jYk-eb-UQs" id="BB1-H3-ag3"/>
+                        <outlet property="button39" destination="tS6-w0-xIT" id="YJC-oP-7oZ"/>
+                        <outlet property="button40" destination="bgo-4k-g5D" id="kTh-6z-wwn"/>
+                        <outlet property="button41" destination="eE6-1p-TSM" id="hRW-yw-VlD"/>
+                        <outlet property="button42" destination="ozk-Nd-itd" id="Pct-pR-eqM"/>
+                        <outlet property="button43" destination="7yB-ip-BhO" id="qDI-10-ePZ"/>
+                        <outlet property="button44" destination="QGk-iM-Bqj" id="hma-Wv-l8w"/>
+                        <outlet property="button45" destination="aVS-lZ-xju" id="azE-ec-tqn"/>
+                        <outlet property="button46" destination="xt6-QH-pmX" id="hQb-fB-MTh"/>
+                        <outlet property="button47" destination="Za6-7v-Vpz" id="bQc-Xs-5go"/>
+                        <outlet property="button48" destination="Mhk-B9-HG7" id="8ee-7N-zy1"/>
+                        <outlet property="button49" destination="ZFb-Ps-vI4" id="3V6-BK-ewK"/>
+                        <outlet property="button50" destination="NFR-L3-Ozt" id="DxD-YB-7TV"/>
+                        <outlet property="button51" destination="Uv6-Qb-Z92" id="ygw-z6-pTJ"/>
+                        <outlet property="button52" destination="N2A-Rk-XeA" id="KOT-UN-Cw9"/>
+                        <outlet property="button53" destination="EGS-mO-Kx3" id="UNh-zi-tyg"/>
+                        <outlet property="button54" destination="btk-ds-nEc" id="JHo-Ko-XMg"/>
+                        <outlet property="button55" destination="rmQ-mG-zfW" id="0Eh-b6-dL2"/>
+                        <outlet property="button56" destination="0m8-2s-z0N" id="7FX-XJ-Kmq"/>
+                        <outlet property="button57" destination="n3Q-Da-5Gc" id="nSn-go-qSE"/>
+                        <outlet property="button58" destination="snW-rF-bft" id="c9a-ZA-msp"/>
+                        <outlet property="button59" destination="TCj-Kt-zIO" id="KkF-CF-nvX"/>
+                        <outlet property="button60" destination="kRz-wX-Xco" id="Hag-h7-L6U"/>
+                        <outlet property="button61" destination="fp1-LF-I7J" id="Yss-g4-B7e"/>
+                        <outlet property="button62" destination="eHB-Kj-C0l" id="7tb-6w-gRl"/>
+                        <outlet property="button63" destination="ODI-jp-sZj" id="VAE-kn-yNO"/>
+                        <outlet property="button64" destination="Yvo-lS-mbB" id="H31-lc-bbv"/>
+                        <outlet property="button65" destination="MZr-HH-zAc" id="pJN-i6-j5L"/>
+                        <outlet property="button66" destination="zEj-yA-DbR" id="Hz8-ZS-0tf"/>
+                        <outlet property="button67" destination="JXu-zu-69q" id="i0F-MI-SQ3"/>
+                        <outlet property="button68" destination="bDc-wo-ScZ" id="kDQ-VR-4Wa"/>
+                        <outlet property="button69" destination="k6f-TJ-N16" id="TY3-Rh-SaC"/>
+                        <outlet property="button70" destination="6SX-nM-ft9" id="KS2-qa-Fqs"/>
+                        <outlet property="button71" destination="Rr4-7u-nwH" id="Wyy-7p-M8d"/>
+                        <outlet property="button72" destination="Xdp-Jx-FAa" id="JHy-HQ-4uE"/>
+                        <outlet property="button73" destination="OyN-D2-bLE" id="LKk-71-AFW"/>
+                        <outlet property="button74" destination="wsv-9Y-cwx" id="gXq-qN-ypp"/>
+                        <outlet property="button75" destination="uRC-33-uG3" id="gNc-ai-oir"/>
+                        <outlet property="button76" destination="jiX-z4-nls" id="FAg-I6-saW"/>
+                        <outlet property="button77" destination="WoO-nD-7hV" id="vST-7U-tRp"/>
+                        <outlet property="button78" destination="S39-Xd-R1e" id="opo-mx-sOx"/>
+                        <outlet property="button79" destination="ky4-5t-0aa" id="RoI-w9-Fwz"/>
+                        <outlet property="button80" destination="hTw-GZ-h4d" id="Ttv-nI-FsC"/>
+                        <outlet property="button81" destination="lCC-1x-YP7" id="iMG-JT-oaK"/>
+                        <outlet property="button82" destination="lsJ-oM-WoV" id="vkU-ji-r3z"/>
+                        <outlet property="button83" destination="Q8A-6Y-tcE" id="jhT-im-Rwh"/>
+                        <outlet property="button84" destination="pwG-pQ-Rgo" id="xVB-qg-kzK"/>
+                        <outlet property="button85" destination="ZE8-J1-mm5" id="cRc-LM-Qzt"/>
+                        <outlet property="button86" destination="45j-v0-MTr" id="Wlb-w1-qpy"/>
+                        <outlet property="button87" destination="q4A-63-PzC" id="7nQ-7K-pnE"/>
+                        <outlet property="button88" destination="Tvc-ws-IKD" id="NAU-bT-8Bj"/>
+                        <outlet property="button90" destination="IPj-ed-6pe" id="m3r-Mj-lVV"/>
+                        <outlet property="button91" destination="YiX-2X-uk0" id="scL-a9-igG"/>
+                        <outlet property="button92" destination="Ml0-sO-zrP" id="UEe-Mj-CNd"/>
+                        <outlet property="button93" destination="dig-yJ-vTe" id="5TZ-dB-vfP"/>
+                        <outlet property="button94" destination="jQl-qi-EPf" id="CQM-65-TpR"/>
+                        <outlet property="button95" destination="6nO-HW-B5C" id="DgV-Oq-oQb"/>
+                        <outlet property="button96" destination="TQy-WL-ceS" id="vkI-6M-dwu"/>
+                        <outlet property="button97" destination="A3l-mq-dYO" id="oE1-Ek-8ox"/>
+                        <outlet property="button98" destination="IXo-pU-rXF" id="LXb-rY-jSv"/>
+                        <outlet property="button99" destination="eAv-wc-39p" id="oYZ-vU-SXK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
