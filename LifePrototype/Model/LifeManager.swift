@@ -11,6 +11,8 @@ struct LifeManager {
     
     var matrix = [[Int]](repeating: [Int](repeating: 0, count: 10), count: 10)
     var newMatrix = [[Int]](repeating: [Int](repeating: 0, count: 10), count: 10)
+    var maxLifeCount = 0
+    var isActive = false
     
     mutating func updateMatrix() {
         
@@ -37,8 +39,6 @@ struct LifeManager {
         if row < 9              {neighborCount += matrix[row + 1][col]}         // down neighbor
         if row < 9 && col < 9   {neighborCount += matrix[row + 1][col + 1]}     // down right neighbor
         
-        
-        
         if matrix[row][col] == 1 {
             if neighborCount == 2 || neighborCount == 3 {
                 return 1
@@ -53,6 +53,28 @@ struct LifeManager {
             }
         }
         
+    }
+    
+    mutating func lifeCount() -> Int{
+        
+        var lifeCount: Int = 0
+        
+        for row in 0...9 {
+            for col in 0...9 {
+                lifeCount += matrix[row][col]
+            }
+        }
+        if lifeCount > maxLifeCount {maxLifeCount = lifeCount}
+        return lifeCount
+    }
+    
+    mutating func clearMatrix() {
+        for row in 0...9 {
+            for col in 0...9 {
+                matrix[row][col] = 0
+            }
+        }
+        maxLifeCount = 0
     }
     
     

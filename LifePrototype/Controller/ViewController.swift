@@ -119,17 +119,23 @@ class ViewController: UIViewController {
     @IBOutlet weak var button98: UIButton!
     @IBOutlet weak var button99: UIButton!
     
-    var buttonMatrix = [[UIButton]](repeating: [UIButton](repeating: UIButton(), count: 10), count: 10)
+    @IBOutlet weak var lifeCountLabel: UILabel!
+    @IBOutlet weak var maxLifeCountLabel: UILabel!
     
+    var buttonMatrix = [[UIButton]](repeating: [UIButton](repeating: UIButton(), count: 10), count: 10)
     
     var lifeManager = LifeManager()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(false)
         
         fillButtonMatrix()
+        configureButtons()
         
-  
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
     }
 
@@ -140,57 +146,51 @@ class ViewController: UIViewController {
         let row = sender.tag / 10
         let col = sender.tag % 10
         
-        if sender.titleLabel?.text == "O" {
-//            sender.setTitle("X", for: .normal)
+        if sender.backgroundColor == .white {
             sender.backgroundColor = .cyan
             lifeManager.matrix[row][col] = 1
         } else {
-//            sender.setTitle("O", for: .normal)
             sender.backgroundColor = .white
             lifeManager.matrix[row][col] = 0
         }
         
     }
     
+    @IBAction func stepButtonPressed(_ sender: UIButton) {
+        
+        lifeManager.updateMatrix()
+        updateDisplay()
+        
+    }
     
     @IBAction func goButtonPressed(_ sender: UIButton) {
         
-        lifeManager.updateMatrix()
-        print(lifeManager.matrix[0])
-        print(lifeManager.matrix[1])
-        print(lifeManager.matrix[2])
-        print(lifeManager.matrix[3])
-        print(lifeManager.matrix[4])
-        print(lifeManager.matrix[5])
-        print(lifeManager.matrix[6])
-        print(lifeManager.matrix[7])
-        print(lifeManager.matrix[8])
-        print(lifeManager.matrix[9])
-        print("------------------------------")
+      
+    }
+    
+    @IBAction func clearButtonPressed(_ sender: UIButton) {
+        
+        lifeManager.clearMatrix()
         updateDisplay()
     }
     
-
+    
     func updateDisplay() {
         
         for row in 0...9 {
             for col in 0...9 {
                 
                 if lifeManager.matrix[row][col] == 1 {
-//                    buttonMatrix[row][col].setTitle("X", for: .normal)
                     buttonMatrix[row][col].backgroundColor = .cyan
                 } else {
-//                    buttonMatrix[row][col].setTitle("O", for: .normal)
                     buttonMatrix[row][col].backgroundColor = .white
                 }
             }
         }
         
-        
-        
-        
-        
-      
+        lifeCountLabel.text = "Life Count: \(lifeManager.lifeCount()) "
+        maxLifeCountLabel.text = "Max Life: \(lifeManager.maxLifeCount)"
+    
     }
     
     func fillButtonMatrix() {
@@ -306,7 +306,18 @@ class ViewController: UIViewController {
         buttonMatrix[9][9] = button99
     }
     
-    
+    func configureButtons() {
+        
+        for row in 0...9 {
+            for col in 0...9 {
+                buttonMatrix[row][col].backgroundColor = .white
+                buttonMatrix[row][col].setTitle("", for: .normal)
+             
+            }
+        }
+        
+        
+    }
     
 }
 
