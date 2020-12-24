@@ -161,11 +161,18 @@ class ViewController: UIViewController {
         lifeManager.updateMatrix()
         updateDisplay()
         
+//        DispatchQueue.main.async {
+//            self.temperatureLabel.text = weather.temperatureString
+//            self.conditionImageView.image = UIImage(systemName: weather.conditionName)
+//            self.cityLabel.text = weather.cityName
+//        }
+        
+        
     }
     
     @IBAction func goButtonPressed(_ sender: UIButton) {
         
-      
+        
     }
     
     @IBAction func clearButtonPressed(_ sender: UIButton) {
@@ -192,6 +199,8 @@ class ViewController: UIViewController {
         maxLifeCountLabel.text = "Max Life: \(lifeManager.maxLifeCount)"
     
     }
+    
+    
     
     func fillButtonMatrix() {
         

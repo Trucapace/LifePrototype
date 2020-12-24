@@ -10,9 +10,14 @@ import Foundation
 struct LifeManager {
     
     var matrix = [[Int]](repeating: [Int](repeating: 0, count: 10), count: 10)
-    var newMatrix = [[Int]](repeating: [Int](repeating: 0, count: 10), count: 10)
+    var newMatrix = [[Int]](repeating: [Int](repeating: 1, count: 10), count: 10)
+    var oldMatrix = [[Int]](repeating: [Int](repeating: 1, count: 10), count: 10)
+    var twoOldMatrix = [[Int]](repeating: [Int](repeating: 1, count: 10), count: 10)
     var maxLifeCount = 0
-    var isActive = false
+    var isActive = true
+    var isOscillator = false
+    var activeTicks = 0
+    var maxActiveTicks = 0
     
     mutating func updateMatrix() {
         
@@ -22,6 +27,26 @@ struct LifeManager {
             }
         }
         
+        if matrix == newMatrix {
+            print("no change")
+            isActive = false
+            isOscillator = false
+        } else if oldMatrix == newMatrix {
+            print("2-tick oscillator")
+            isActive = true
+            isOscillator = true
+        } else if twoOldMatrix == newMatrix {
+            print("3-tick oscillator")
+            isActive = true
+            isOscillator = true
+        } else {
+            print("active")
+            isActive = true
+            isOscillator = false
+        }
+        
+        twoOldMatrix = oldMatrix
+        oldMatrix = matrix
         matrix = newMatrix
         
     }
