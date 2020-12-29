@@ -137,9 +137,7 @@ class ViewController: UIViewController {
     var lifeManager = LifeManager()
     var currentSection = 0
     
-    let itemsPerRow: CGFloat = 10
-    
-    
+    var itemsPerRow: CGFloat = 0
     
     override func viewDidLoad() {
         
@@ -152,6 +150,8 @@ class ViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(false)
+        
+        itemsPerRow = CGFloat(lifeManager.matrix[0].count)
         
         fillButtonMatrix()
         configureButtons()
@@ -350,6 +350,20 @@ extension ViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
+        let row = indexPath.section
+        let col = indexPath.row
+        
+        if lifeManager.matrix[row][col] == 0 {
+            gridCollectionView.cellForItem(at: indexPath)?.backgroundColor = .red
+            lifeManager.matrix[row][col] = 1
+        } else {
+            gridCollectionView.cellForItem(at: indexPath)?.backgroundColor = .blue
+            lifeManager.matrix[row][col] = 0
+        }
+        gridCollectionView.reloadData()
+        
+        
+        
     }
     
 }
@@ -360,22 +374,23 @@ extension ViewController: UICollectionViewDelegate {
 extension ViewController: UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
+ 
         return lifeManager.matrix.count
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        currentSection = section
+
         return lifeManager.matrix[section].count
     }
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-  
+
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "LifeCell", for: indexPath)
-
-        let row = currentSection
+        
+        let row = indexPath.section
         let col = indexPath.row
 
 
@@ -398,9 +413,12 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
        
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
-        let availableWidth = view.frame.width - paddingSpace
+        let paddingSpace = (sectionInsets.left + sectionInsets.right) * (itemsPerRow + 1)
+        let availableWidth = gridCollectionView.frame.width - paddingSpace
         let widthPerItem = availableWidth / itemsPerRow
+        print("gridWidth:\(gridCollectionView.frame.width)")
+        print("available width: \(availableWidth)")
+        print("width per item: \(widthPerItem)")
         
         return CGSize(width: widthPerItem, height: widthPerItem)
     }
