@@ -119,12 +119,36 @@ class ViewController: UIViewController {
     @IBOutlet weak var button98: UIButton!
     @IBOutlet weak var button99: UIButton!
     
-    @IBOutlet weak var lifeCountLabel: UILabel!
-    @IBOutlet weak var maxLifeCountLabel: UILabel!
-    
     var buttonMatrix = [[UIButton]](repeating: [UIButton](repeating: UIButton(), count: 10), count: 10)
     
+    
+    
+    @IBOutlet weak var lifeCountLabel: UILabel!
+    @IBOutlet weak var maxLifeCountLabel: UILabel!
+ 
+    @IBOutlet weak var gridCollectionView: UICollectionView!
+    
+    
+    let sectionInsets = UIEdgeInsets(   top:  5.0,
+                                       left:  5.0,
+                                     bottom:  5.0,
+                                      right:  5.0)
+
     var lifeManager = LifeManager()
+    var currentSection = 0
+    
+    let itemsPerRow: CGFloat = 10
+    
+    
+    
+    override func viewDidLoad() {
+        
+        gridCollectionView.dataSource = self
+        gridCollectionView.delegate = self
+        gridCollectionView.reloadData()
+
+    }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(false)
@@ -134,10 +158,6 @@ class ViewController: UIViewController {
         
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-    }
 
     @IBAction func gridButtonPressed(_ sender: UIButton) {
         
@@ -153,6 +173,7 @@ class ViewController: UIViewController {
             sender.backgroundColor = .white
             lifeManager.matrix[row][col] = 0
         }
+        gridCollectionView.reloadData()
         
     }
     
@@ -160,13 +181,6 @@ class ViewController: UIViewController {
         
         lifeManager.updateMatrix()
         updateDisplay()
-        
-//        DispatchQueue.main.async {
-//            self.temperatureLabel.text = weather.temperatureString
-//            self.conditionImageView.image = UIImage(systemName: weather.conditionName)
-//            self.cityLabel.text = weather.cityName
-//        }
-        
         
     }
     
@@ -197,6 +211,7 @@ class ViewController: UIViewController {
         
         lifeCountLabel.text = "Life Count: \(lifeManager.lifeCount()) "
         maxLifeCountLabel.text = "Max Life: \(lifeManager.maxLifeCount)"
+        gridCollectionView.reloadData()
     
     }
     
@@ -328,5 +343,77 @@ class ViewController: UIViewController {
         
     }
     
+    
 }
 
+extension ViewController: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+    }
+    
+}
+
+
+//MARK: - UICollectionViewDataSource
+
+extension ViewController: UICollectionViewDataSource {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return lifeManager.matrix.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        currentSection = section
+        return lifeManager.matrix[section].count
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+  
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "LifeCell", for: indexPath)
+
+        let row = currentSection
+        let col = indexPath.row
+
+
+        print("row:\(row) col:\(col) val:\(lifeManager.matrix[row][col])")
+
+        if lifeManager.matrix[row][col] == 1 {
+            cell.backgroundColor = .red
+        } else {
+            cell.backgroundColor = .blue
+        }
+
+        return cell
+    }
+    
+}
+
+//MARK: - UICollectionViewDelegateFlowLayout
+   
+extension ViewController: UICollectionViewDelegateFlowLayout {
+       
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
+        let availableWidth = view.frame.width - paddingSpace
+        let widthPerItem = availableWidth / itemsPerRow
+        
+        return CGSize(width: widthPerItem, height: widthPerItem)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        
+        return sectionInsets
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        
+        return sectionInsets.left
+    }
+    
+    
+   }
