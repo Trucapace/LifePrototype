@@ -13,13 +13,22 @@ struct LifeManager {
     var newMatrix = [[Int]](repeating: [Int](repeating: 1, count: K.numberOfColumns), count: K.numberOfRows)
     var oldMatrix = [[Int]](repeating: [Int](repeating: 1, count: K.numberOfColumns), count: K.numberOfRows)
     var twoOldMatrix = [[Int]](repeating: [Int](repeating: 1, count: K.numberOfColumns), count: K.numberOfRows)
+    var lifeCount = 0
     var maxLifeCount = 0
-    var isActive = true
+    var isActive = false
     var isOscillator = false
+    var userChangedGrid = false
     var activeTicks = 0
     var maxActiveTicks = 0
+    var lifeStatus = "Empty"
     
     mutating func updateMatrix() {
+        
+        if userChangedGrid == true {
+            activeTicks = 0
+            userChangedGrid = false
+            isActive = false
+        }
         
         for row in 0...K.numberOfRows - 1 {
             for col in 0...K.numberOfColumns - 1 {
@@ -27,22 +36,38 @@ struct LifeManager {
             }
         }
         
-        if matrix == newMatrix {
-            print("no change")
+        lifeCount = countLife(for: newMatrix)
+        
+        if lifeCount > maxLifeCount {maxLifeCount = lifeCount}
+        
+        if lifeCount == 0 {
             isActive = false
             isOscillator = false
+            lifeStatus = "Empty"
+        } else if matrix == newMatrix {
+            isActive = false
+            isOscillator = false
+            lifeStatus = "Frozen"
         } else if oldMatrix == newMatrix {
-            print("2-tick oscillator")
             isActive = true
             isOscillator = true
+            lifeStatus = "2-Cycle Oscillator"
         } else if twoOldMatrix == newMatrix {
-            print("3-tick oscillator")
             isActive = true
             isOscillator = true
+            lifeStatus = "3-Cycle Oscillator"
         } else {
-            print("active")
             isActive = true
             isOscillator = false
+            lifeStatus = "Active"
+        }
+        
+        if isActive == true && isOscillator == false {
+            activeTicks += 1
+        } else {
+            if activeTicks > maxActiveTicks {
+                maxActiveTicks = activeTicks
+            }
         }
         
         twoOldMatrix = oldMatrix
@@ -80,17 +105,16 @@ struct LifeManager {
         
     }
     
-    mutating func lifeCount() -> Int{
+    mutating func countLife(for array: [[Int]]) -> Int {
         
-        var lifeCount: Int = 0
+        var count = 0
         
         for row in 0...K.numberOfRows - 1 {
             for col in 0...K.numberOfColumns - 1 {
-                lifeCount += matrix[row][col]
+                count += array[row][col]
             }
         }
-        if lifeCount > maxLifeCount {maxLifeCount = lifeCount}
-        return lifeCount
+        return count
     }
     
     mutating func clearMatrix() {
@@ -99,7 +123,11 @@ struct LifeManager {
                 matrix[row][col] = 0
             }
         }
-        maxLifeCount = 0
+
+        activeTicks = 0
+        lifeCount = 0
+        lifeStatus = "Empty"
+        
     }
     
     

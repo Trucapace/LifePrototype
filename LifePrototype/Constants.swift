@@ -8,8 +8,8 @@
 import UIKit
 
 struct K {
-    static let numberOfColumns: Int = 25
-    static let numberOfRows: Int = 25
+    static let numberOfColumns: Int = 4
+    static let numberOfRows: Int = 4
     static let gridSpacing: CGFloat = 2.0
 }
 
