@@ -13,10 +13,10 @@ class ViewController: UIViewController {
     @IBOutlet weak var maxLifeCountLabel: UILabel!
     @IBOutlet weak var gridCollectionView: UICollectionView!
     
-    let sectionInsets = UIEdgeInsets(   top:  5.0,
-                                       left:  5.0,
-                                     bottom:  5.0,
-                                      right:  5.0)
+    let sectionInsets = UIEdgeInsets(   top:  1.0,
+                                       left:  1.0,
+                                     bottom:  1.0,
+                                      right:  1.0)
 
     var lifeManager = LifeManager()
     var currentSection = 0
@@ -127,25 +127,35 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
        
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let paddingSpace = (sectionInsets.left + sectionInsets.right) * (itemsPerRow + 1)
-        let availableWidth = gridCollectionView.frame.width - paddingSpace
-        let widthPerItem = availableWidth / itemsPerRow
-//        print("gridWidth:\(gridCollectionView.frame.width)")
-//        print("available width: \(availableWidth)")
-//        print("width per item: \(widthPerItem)")
+        let paddingWidthSpace = K.gridSpacing * CGFloat(K.numberOfColumns + 1)
+        let paddingHeightSpace = K.gridSpacing * CGFloat(K.numberOfRows + 1)
         
-        return CGSize(width: widthPerItem, height: widthPerItem)
+        let availableWidth = gridCollectionView.frame.width - paddingWidthSpace
+        let availableHeight = gridCollectionView.frame.height - paddingHeightSpace
+        
+        let widthPerItem = availableWidth / CGFloat(K.numberOfColumns)
+        let heightPerItem = availableHeight / CGFloat(K.numberOfColumns)
+        
+        if widthPerItem < heightPerItem {
+            return CGSize(width: widthPerItem, height: widthPerItem)
+        } else {
+            return CGSize(width: heightPerItem, height: heightPerItem)
+        }
+        
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+
+        return K.gridSpacing
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        
+
         return sectionInsets
     }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        
-        return sectionInsets.left
-    }
+
+
     
     
    }
