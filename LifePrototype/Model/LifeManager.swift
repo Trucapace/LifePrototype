@@ -9,10 +9,10 @@ import Foundation
 
 struct LifeManager {
     
-    var matrix = [[Int]](repeating: [Int](repeating: 0, count: 10), count: 10)
-    var newMatrix = [[Int]](repeating: [Int](repeating: 1, count: 10), count: 10)
-    var oldMatrix = [[Int]](repeating: [Int](repeating: 1, count: 10), count: 10)
-    var twoOldMatrix = [[Int]](repeating: [Int](repeating: 1, count: 10), count: 10)
+    var matrix = [[Int]](repeating: [Int](repeating: 0, count: K.numberOfColumns), count: K.numberOfRows)
+    var newMatrix = [[Int]](repeating: [Int](repeating: 1, count: K.numberOfColumns), count: K.numberOfRows)
+    var oldMatrix = [[Int]](repeating: [Int](repeating: 1, count: K.numberOfColumns), count: K.numberOfRows)
+    var twoOldMatrix = [[Int]](repeating: [Int](repeating: 1, count: K.numberOfColumns), count: K.numberOfRows)
     var maxLifeCount = 0
     var isActive = true
     var isOscillator = false
@@ -21,8 +21,8 @@ struct LifeManager {
     
     mutating func updateMatrix() {
         
-        for row in 0...9 {
-            for col in 0...9 {
+        for row in 0...K.numberOfRows - 1 {
+            for col in 0...K.numberOfColumns - 1 {
                 newMatrix[row][col] = checkNeighbors(row, col)
             }
         }
@@ -55,14 +55,14 @@ struct LifeManager {
         
         var neighborCount: Int = 0
         
-        if row > 0 && col > 0   {neighborCount += matrix[row - 1][col - 1]}     // up left neighbor
-        if row > 0              {neighborCount += matrix[row-1][col]}           // up neighbor
-        if row > 0 && col < 9   {neighborCount += matrix[row - 1][col + 1]}     // up right neighbor
-        if col > 0              {neighborCount += matrix[row][col - 1]}         // left neighbor
-        if col < 9              {neighborCount += matrix[row][col + 1]}         // right neighbor
-        if row < 9 && col > 0   {neighborCount += matrix[row + 1][col - 1]}     // down left neighbor
-        if row < 9              {neighborCount += matrix[row + 1][col]}         // down neighbor
-        if row < 9 && col < 9   {neighborCount += matrix[row + 1][col + 1]}     // down right neighbor
+        if row > 0 && col > 0                                       {neighborCount += matrix[row - 1][col - 1]}  // up left
+        if row > 0                                                  {neighborCount += matrix[row-1][col]}        // up
+        if row > 0 && col < K.numberOfColumns - 1                   {neighborCount += matrix[row - 1][col + 1]}  // up right
+        if col > 0                                                  {neighborCount += matrix[row][col - 1]}      // left
+        if col < K.numberOfColumns - 1                              {neighborCount += matrix[row][col + 1]}      // right
+        if row < K.numberOfRows - 1 && col > 0                      {neighborCount += matrix[row + 1][col - 1]}  // down left
+        if row < K.numberOfRows - 1                                 {neighborCount += matrix[row + 1][col]}      // down
+        if row < K.numberOfRows - 1 && col < K.numberOfColumns - 1  {neighborCount += matrix[row + 1][col + 1]}  // down right
         
         if matrix[row][col] == 1 {
             if neighborCount == 2 || neighborCount == 3 {
@@ -84,8 +84,8 @@ struct LifeManager {
         
         var lifeCount: Int = 0
         
-        for row in 0...9 {
-            for col in 0...9 {
+        for row in 0...K.numberOfRows - 1 {
+            for col in 0...K.numberOfColumns - 1 {
                 lifeCount += matrix[row][col]
             }
         }
@@ -94,8 +94,8 @@ struct LifeManager {
     }
     
     mutating func clearMatrix() {
-        for row in 0...9 {
-            for col in 0...9 {
+        for row in 0...K.numberOfRows - 1 {
+            for col in 0...K.numberOfColumns - 1 {
                 matrix[row][col] = 0
             }
         }
