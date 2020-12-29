@@ -137,6 +137,7 @@
                     </view>
                     <connections>
                         <outlet property="activeTicksLabel" destination="ubh-Ud-4jl" id="stj-IW-7Nx"/>
+                        <outlet property="goButton" destination="tzR-rq-OyB" id="VMQ-8i-SDi"/>
                         <outlet property="gridCollectionView" destination="415-dI-kXl" id="1JR-P4-vel"/>
                         <outlet property="lifeCountLabel" destination="2Wy-P6-FSj" id="W39-JB-mFk"/>
                         <outlet property="lifeStatusLabel" destination="IsK-8f-amo" id="und-IA-Fj9"/>

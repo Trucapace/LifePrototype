@@ -17,6 +17,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var lifeStatusLabel: UILabel!
     @IBOutlet weak var stopButton: UIButton!
     @IBOutlet weak var stepButton: UIButton!
+    @IBOutlet weak var goButton: UIButton!
     
     
     let sectionInsets = UIEdgeInsets(   top:  1.0,
@@ -56,9 +57,10 @@ class ViewController: UIViewController {
         var runCount = 0
         lifeManager.isActive = true
         stopButton.isEnabled = true
+        goButton.isEnabled = false
         stepButton.isEnabled = false
         
-        let timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { (timer) in
+        _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { (timer) in
             print("timer fired \(runCount) active: \(self.lifeManager.isActive) osc: \(self.lifeManager.isOscillator)")
             self.lifeManager.updateMatrix()
             self.updateDisplay()
@@ -67,6 +69,7 @@ class ViewController: UIViewController {
                 timer.invalidate()
                 print("timer is done")
                 self.stopButton.isEnabled = false
+                self.goButton.isEnabled = true
                 self.stepButton.isEnabled = true
             }
         }
@@ -76,8 +79,8 @@ class ViewController: UIViewController {
     @IBAction func stopButtonPressed(_ sender: UIButton) {
         
         stopButton.isEnabled = false
+        goButton.isEnabled = true
         stepButton.isEnabled = true
-        
         
     }
     
