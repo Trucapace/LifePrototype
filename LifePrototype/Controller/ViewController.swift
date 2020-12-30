@@ -15,9 +15,12 @@ class ViewController: UIViewController {
     @IBOutlet weak var maxActiveTicksLabel: UILabel!
     @IBOutlet weak var gridCollectionView: UICollectionView!
     @IBOutlet weak var lifeStatusLabel: UILabel!
+   
+    @IBOutlet weak var clearButton: UIButton!
     @IBOutlet weak var stopButton: UIButton!
     @IBOutlet weak var stepButton: UIButton!
     @IBOutlet weak var goButton: UIButton!
+
     
     
     let sectionInsets = UIEdgeInsets(   top:  1.0,
@@ -56,32 +59,37 @@ class ViewController: UIViewController {
         
         var runCount = 0
         lifeManager.isActive = true
+
+        clearButton.isEnabled = false
         stopButton.isEnabled = true
         goButton.isEnabled = false
         stepButton.isEnabled = false
+        gridCollectionView.allowsSelection = false
         
         _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { (timer) in
-            print("timer fired \(runCount) active: \(self.lifeManager.isActive) osc: \(self.lifeManager.isOscillator)")
+     
             self.lifeManager.updateMatrix()
             self.updateDisplay()
             runCount += 1
             if self.lifeManager.isActive == false || self.stopButton.isEnabled == false{
                 timer.invalidate()
-                print("timer is done")
+                self.clearButton.isEnabled = true
                 self.stopButton.isEnabled = false
                 self.goButton.isEnabled = true
                 self.stepButton.isEnabled = true
+                self.gridCollectionView.allowsSelection = true
             }
         }
     
     }
     
     @IBAction func stopButtonPressed(_ sender: UIButton) {
-        
+    
+        clearButton.isEnabled = true
         stopButton.isEnabled = false
         goButton.isEnabled = true
         stepButton.isEnabled = true
-        
+        gridCollectionView.allowsSelection = true
     }
     
     
@@ -93,20 +101,22 @@ class ViewController: UIViewController {
     
     func updateDisplay() {
                 
-        lifeCountLabel.text = "Life Count: \(lifeManager.lifeCount) "
-        maxLifeCountLabel.text = "Max Life: \(lifeManager.maxLifeCount)"
-        activeTicksLabel.text = "Cycles: \(lifeManager.activeTicks)"
-        maxActiveTicksLabel.text = "Max Cycles: \(lifeManager.maxActiveTicks)"
+        lifeCountLabel.text = "Size: \(lifeManager.lifeCount) Cells"
+        maxLifeCountLabel.text = "Max Size: \(lifeManager.maxLifeCount) Cells"
+        activeTicksLabel.text = "Age: \(lifeManager.activeTicks) Days"
+        maxActiveTicksLabel.text = "Max Age: \(lifeManager.maxActiveTicks) Days"
         lifeStatusLabel.text = "Status: \(lifeManager.lifeStatus)"
         
         gridCollectionView.reloadData()
     
     }
     
-    func loopUntilDone() {
-        
-        
-        
+    func buttonEnabler() {
+        clearButton.isEnabled = !clearButton.isEnabled
+        stopButton.isEnabled = !stopButton.isEnabled
+        stepButton.isEnabled = !stepButton.isEnabled
+        goButton.isEnabled = !goButton.isEnabled
+        gridCollectionView.allowsSelection = !gridCollectionView.allowsSelection
         
     }
     
