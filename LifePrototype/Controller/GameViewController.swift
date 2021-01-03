@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class GameViewController: UIViewController {
 
     @IBOutlet weak var lifeCountLabel: UILabel!
     @IBOutlet weak var maxLifeCountLabel: UILabel!
@@ -21,16 +21,12 @@ class ViewController: UIViewController {
     @IBOutlet weak var stepButton: UIButton!
     @IBOutlet weak var goButton: UIButton!
 
-    
-    
     let sectionInsets = UIEdgeInsets(   top:  1.0,
                                        left:  1.0,
                                      bottom:  1.0,
                                       right:  1.0)
 
-    var lifeManager = LifeManager()
-    var itemsPerRow: CGFloat = 0
-    
+    var lifeManager: LifeManager?
     
     override func viewDidLoad() {
         
@@ -44,34 +40,35 @@ class ViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(false)
         
-        itemsPerRow = CGFloat(lifeManager.matrix[0].count)
         stopButton.isEnabled = false
         
     }
     
     @IBAction func stepButtonPressed(_ sender: UIButton) {
         
-        lifeManager.updateMatrix()
+        lifeManager!.updateMatrix()
         updateDisplay()
     }
     
     @IBAction func goButtonPressed(_ sender: UIButton) {
         
         var runCount = 0
-        lifeManager.isActive = true
+        lifeManager?.isActive = true
 
         clearButton.isEnabled = false
         stopButton.isEnabled = true
         goButton.isEnabled = false
         stepButton.isEnabled = false
         gridCollectionView.allowsSelection = false
+       
+        
         
         _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { (timer) in
      
-            self.lifeManager.updateMatrix()
+            self.lifeManager?.updateMatrix()
             self.updateDisplay()
             runCount += 1
-            if self.lifeManager.isActive == false || self.stopButton.isEnabled == false{
+            if self.lifeManager?.isActive == false || self.stopButton.isEnabled == false{
                 timer.invalidate()
                 self.clearButton.isEnabled = true
                 self.stopButton.isEnabled = false
@@ -92,20 +89,19 @@ class ViewController: UIViewController {
         gridCollectionView.allowsSelection = true
     }
     
-    
     @IBAction func clearButtonPressed(_ sender: UIButton) {
         
-        lifeManager.clearMatrix()
+        lifeManager?.clearMatrix()
         updateDisplay()
     }
     
     func updateDisplay() {
                 
-        lifeCountLabel.text = "Size: \(lifeManager.lifeCount) Cells"
-        maxLifeCountLabel.text = "Max Size: \(lifeManager.maxLifeCount) Cells"
-        activeTicksLabel.text = "Age: \(lifeManager.activeTicks) Days"
-        maxActiveTicksLabel.text = "Max Age: \(lifeManager.maxActiveTicks) Days"
-        lifeStatusLabel.text = "Status: \(lifeManager.lifeStatus)"
+        lifeCountLabel.text = "Size: \(lifeManager!.lifeCount) Cells"
+        maxLifeCountLabel.text = "Max Size: \(lifeManager!.maxLifeCount) Cells"
+        activeTicksLabel.text = "Age: \(lifeManager!.activeTicks) Days"
+        maxActiveTicksLabel.text = "Max Age: \(lifeManager!.maxActiveTicks) Days"
+        lifeStatusLabel.text = "Status: \(lifeManager!.lifeStatus)"
         
         gridCollectionView.reloadData()
     
@@ -120,25 +116,28 @@ class ViewController: UIViewController {
         
     }
     
+
+    
+    
 }
 
 //MARK: - UICollectionViewDelegate
 
-extension ViewController: UICollectionViewDelegate {
+extension GameViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        lifeManager.userChangedGrid = true
+        lifeManager?.userChangedGrid = true
         
         let row = indexPath.section
         let col = indexPath.row
         
-        if lifeManager.matrix[row][col] == 0 {
+        if lifeManager?.matrix[row][col] == 0 {
             gridCollectionView.cellForItem(at: indexPath)?.backgroundColor = .red
-            lifeManager.matrix[row][col] = 1
+            lifeManager?.matrix[row][col] = 1
         } else {
             gridCollectionView.cellForItem(at: indexPath)?.backgroundColor = .blue
-            lifeManager.matrix[row][col] = 0
+            lifeManager?.matrix[row][col] = 0
         }
         gridCollectionView.reloadData()
         
@@ -148,16 +147,16 @@ extension ViewController: UICollectionViewDelegate {
 
 //MARK: - UICollectionViewDataSource
 
-extension ViewController: UICollectionViewDataSource {
+extension GameViewController: UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
  
-        return lifeManager.matrix.count
+        return lifeManager?.matrix.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
-        return lifeManager.matrix[section].count
+        return lifeManager?.matrix[section].count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -167,7 +166,7 @@ extension ViewController: UICollectionViewDataSource {
         let row = indexPath.section
         let col = indexPath.row
 
-        if lifeManager.matrix[row][col] == 1 {
+        if lifeManager?.matrix[row][col] == 1 {
             cell.backgroundColor = .red
         } else {
             cell.backgroundColor = .blue
@@ -180,18 +179,18 @@ extension ViewController: UICollectionViewDataSource {
 
 //MARK: - UICollectionViewDelegateFlowLayout
    
-extension ViewController: UICollectionViewDelegateFlowLayout {
+extension GameViewController: UICollectionViewDelegateFlowLayout {
        
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let paddingWidthSpace = K.gridSpacing * CGFloat(K.numberOfColumns + 1)
-        let paddingHeightSpace = K.gridSpacing * CGFloat(K.numberOfRows + 1)
+        let paddingWidthSpace = K.gridSpacing * CGFloat(lifeManager?.numberOfColumns ?? 0 + 1) + 2
+        let paddingHeightSpace = K.gridSpacing * CGFloat(lifeManager?.numberOfRows ?? 0 + 1) + 2
         
         let availableWidth = gridCollectionView.frame.width - paddingWidthSpace
         let availableHeight = gridCollectionView.frame.height - paddingHeightSpace
         
-        let widthPerItem = availableWidth / CGFloat(K.numberOfColumns)
-        let heightPerItem = availableHeight / CGFloat(K.numberOfColumns)
+        let widthPerItem = availableWidth / CGFloat(lifeManager?.numberOfColumns ?? 0)
+        let heightPerItem = availableHeight / CGFloat(lifeManager?.numberOfRows ?? 0)
         
         if widthPerItem < heightPerItem {
             return CGSize(width: widthPerItem, height: widthPerItem)

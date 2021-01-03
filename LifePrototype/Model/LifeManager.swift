@@ -9,10 +9,12 @@ import Foundation
 
 struct LifeManager {
     
-    var matrix = [[Int]](repeating: [Int](repeating: 0, count: K.numberOfColumns), count: K.numberOfRows)
-    var newMatrix = [[Int]](repeating: [Int](repeating: 1, count: K.numberOfColumns), count: K.numberOfRows)
-    var oldMatrix = [[Int]](repeating: [Int](repeating: 1, count: K.numberOfColumns), count: K.numberOfRows)
-    var twoOldMatrix = [[Int]](repeating: [Int](repeating: 1, count: K.numberOfColumns), count: K.numberOfRows)
+    var numberOfRows: Int
+    var numberOfColumns: Int
+    var matrix = [[Int]]()
+    var newMatrix = [[Int]]()
+    var oldMatrix = [[Int]]()
+    var twoOldMatrix = [[Int]]()
     var lifeCount = 0
     var maxLifeCount = 0
     var isActive = false
@@ -22,6 +24,15 @@ struct LifeManager {
     var maxActiveTicks = 0
     var lifeStatus = "Dead"
     
+    init (rows: Int, cols: Int) {
+        self.numberOfRows = rows
+        self.numberOfColumns = cols
+        self.matrix = [[Int]](repeating: [Int](repeating: 0, count: cols), count: rows)
+        self.newMatrix = [[Int]](repeating: [Int](repeating: 0, count: cols), count: rows)
+        self.oldMatrix = [[Int]](repeating: [Int](repeating: 0, count: cols), count: rows)
+        self.twoOldMatrix = [[Int]](repeating: [Int](repeating: 0, count: cols), count: rows)
+    }
+    
     mutating func updateMatrix() {
         
         if userChangedGrid == true {
@@ -30,8 +41,8 @@ struct LifeManager {
             isActive = false
         }
         
-        for row in 0...K.numberOfRows - 1 {
-            for col in 0...K.numberOfColumns - 1 {
+        for row in 0...numberOfRows - 1 {
+            for col in 0...numberOfColumns - 1 {
                 newMatrix[row][col] = checkNeighbors(row, col)
             }
         }
@@ -82,12 +93,12 @@ struct LifeManager {
         
         if row > 0 && col > 0                                       {neighborCount += matrix[row - 1][col - 1]}  // up left
         if row > 0                                                  {neighborCount += matrix[row-1][col]}        // up
-        if row > 0 && col < K.numberOfColumns - 1                   {neighborCount += matrix[row - 1][col + 1]}  // up right
+        if row > 0 && col < numberOfColumns - 1                   {neighborCount += matrix[row - 1][col + 1]}  // up right
         if col > 0                                                  {neighborCount += matrix[row][col - 1]}      // left
-        if col < K.numberOfColumns - 1                              {neighborCount += matrix[row][col + 1]}      // right
-        if row < K.numberOfRows - 1 && col > 0                      {neighborCount += matrix[row + 1][col - 1]}  // down left
-        if row < K.numberOfRows - 1                                 {neighborCount += matrix[row + 1][col]}      // down
-        if row < K.numberOfRows - 1 && col < K.numberOfColumns - 1  {neighborCount += matrix[row + 1][col + 1]}  // down right
+        if col < numberOfColumns - 1                              {neighborCount += matrix[row][col + 1]}      // right
+        if row < numberOfRows - 1 && col > 0                      {neighborCount += matrix[row + 1][col - 1]}  // down left
+        if row < numberOfRows - 1                                 {neighborCount += matrix[row + 1][col]}      // down
+        if row < numberOfRows - 1 && col < numberOfColumns - 1  {neighborCount += matrix[row + 1][col + 1]}  // down right
         
         if matrix[row][col] == 1 {
             if neighborCount == 2 || neighborCount == 3 {
@@ -109,8 +120,8 @@ struct LifeManager {
         
         var count = 0
         
-        for row in 0...K.numberOfRows - 1 {
-            for col in 0...K.numberOfColumns - 1 {
+        for row in 0...numberOfRows - 1 {
+            for col in 0...numberOfColumns - 1 {
                 count += array[row][col]
             }
         }
@@ -118,8 +129,8 @@ struct LifeManager {
     }
     
     mutating func clearMatrix() {
-        for row in 0...K.numberOfRows - 1 {
-            for col in 0...K.numberOfColumns - 1 {
+        for row in 0...numberOfRows - 1 {
+            for col in 0...numberOfColumns - 1 {
                 matrix[row][col] = 0
             }
         }
