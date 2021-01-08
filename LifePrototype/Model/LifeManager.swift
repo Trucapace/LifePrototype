@@ -91,13 +91,13 @@ struct LifeManager {
         
         var neighborCount: Int = 0
         
-        if row > 0 && col > 0                                       {neighborCount += matrix[row - 1][col - 1]}  // up left
-        if row > 0                                                  {neighborCount += matrix[row-1][col]}        // up
-        if row > 0 && col < numberOfColumns - 1                   {neighborCount += matrix[row - 1][col + 1]}  // up right
-        if col > 0                                                  {neighborCount += matrix[row][col - 1]}      // left
-        if col < numberOfColumns - 1                              {neighborCount += matrix[row][col + 1]}      // right
-        if row < numberOfRows - 1 && col > 0                      {neighborCount += matrix[row + 1][col - 1]}  // down left
-        if row < numberOfRows - 1                                 {neighborCount += matrix[row + 1][col]}      // down
+        if row > 0 && col > 0                                   {neighborCount += matrix[row - 1][col - 1]}  // up left
+        if row > 0                                              {neighborCount += matrix[row-1][col]}        // up
+        if row > 0 && col < numberOfColumns - 1                 {neighborCount += matrix[row - 1][col + 1]}  // up right
+        if col > 0                                              {neighborCount += matrix[row][col - 1]}      // left
+        if col < numberOfColumns - 1                            {neighborCount += matrix[row][col + 1]}      // right
+        if row < numberOfRows - 1 && col > 0                    {neighborCount += matrix[row + 1][col - 1]}  // down left
+        if row < numberOfRows - 1                               {neighborCount += matrix[row + 1][col]}      // down
         if row < numberOfRows - 1 && col < numberOfColumns - 1  {neighborCount += matrix[row + 1][col + 1]}  // down right
         
         if matrix[row][col] == 1 {

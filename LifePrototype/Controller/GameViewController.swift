@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class GameViewController: UIViewController {
 
@@ -28,6 +29,10 @@ class GameViewController: UIViewController {
 
     var lifeManager: LifeManager?
     
+    let realm = try! Realm()
+    
+    var currentGame: Game?
+    
     override func viewDidLoad() {
         
         gridCollectionView.dataSource = self
@@ -36,13 +41,19 @@ class GameViewController: UIViewController {
 
     }
     
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(false)
         
         stopButton.isEnabled = false
         
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        saveGameData()
+        
+    }
+    
+    
     
     @IBAction func stepButtonPressed(_ sender: UIButton) {
         
@@ -107,17 +118,25 @@ class GameViewController: UIViewController {
     
     }
     
-    func buttonEnabler() {
-        clearButton.isEnabled = !clearButton.isEnabled
-        stopButton.isEnabled = !stopButton.isEnabled
-        stepButton.isEnabled = !stepButton.isEnabled
-        goButton.isEnabled = !goButton.isEnabled
-        gridCollectionView.allowsSelection = !gridCollectionView.allowsSelection
+    func saveGameData() {
+        
+        do {
+            try realm.write {
+                if lifeManager!.maxLifeCount > currentGame!.maxSize {
+                    currentGame!.maxSize = lifeManager!.maxLifeCount
+                }
+                
+                
+            }
+        } catch {
+            print("Error writing to realm \(error)")
+        }
+        
+
         
     }
     
 
-    
     
 }
 
