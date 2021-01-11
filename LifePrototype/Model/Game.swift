@@ -9,12 +9,16 @@ import Foundation
 import RealmSwift
 
 class Game: Object {
+    
     @objc dynamic var levelNum: Int = 0
     @objc dynamic var numberOfRows: Int = 0
     @objc dynamic var numberOfColumns: Int = 0
-    @objc dynamic var canPlay: Bool = false
+    @objc dynamic var targetSize: Int = 0
+    @objc dynamic var targetAge: Int = 0
     @objc dynamic var maxSize: Int = 0
     @objc dynamic var maxAge: Int = 0
+    @objc dynamic var metTarget: Bool = false
+    
     var parentRoom = LinkingObjects(fromType: Room.self, property: "games")
     
 }

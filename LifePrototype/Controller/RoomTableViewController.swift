@@ -9,8 +9,6 @@ import UIKit
 import RealmSwift
 
 class RoomTableViewController: UITableViewController {
-
-    var levelManager = LevelManager()
     
     let realm = try! Realm()
     
@@ -38,6 +36,7 @@ class RoomTableViewController: UITableViewController {
         
     }
     
+    
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
         return rooms?[section].roomName
@@ -61,7 +60,7 @@ class RoomTableViewController: UITableViewController {
         
         cell.textLabel?.text = "Level \(level) - \(col)x\(row) matrix"
         
-        if games?[indexPath.row].canPlay == true {
+        if games?[indexPath.row].metTarget == true {
             cell.textLabel?.textColor = .black
         } else {
             cell.textLabel?.textColor = .lightGray
@@ -71,20 +70,19 @@ class RoomTableViewController: UITableViewController {
     }
     
     
-    
     //MARK: - Table view Delegates
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if games?[indexPath.row].canPlay == true {
+        if games?[indexPath.row].metTarget == true {
             selectedGame = games?[indexPath.row]
             performSegue(withIdentifier: "goToGame", sender: self)
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
 
-        
     }
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
@@ -98,7 +96,9 @@ class RoomTableViewController: UITableViewController {
             destinationVC.lifeManager = LifeManager(rows: row, cols: col)
             destinationVC.currentGame = selectedGame
         }
+        
     }
+    
     
 //MARK: - Data Manipulation Methods
     
@@ -112,12 +112,12 @@ class RoomTableViewController: UITableViewController {
     }
     
     func fillRoom() {
-       
+        
         let newRoom = Room()
         let newRoom2 = Room()
         newRoom.roomName = "Beginner"
         newRoom2.roomName = "Intermediate"
-        
+
         do {
             try realm.write {
                 realm.add(newRoom)
@@ -127,9 +127,9 @@ class RoomTableViewController: UITableViewController {
         } catch {
             print("Error adding new room \(error)")
         }
-        
-  
-    
+
+
+
         do {
             try realm.write {
                 let newGame1 = Game()
@@ -147,5 +147,4 @@ class RoomTableViewController: UITableViewController {
     }
     
 
-   
 }

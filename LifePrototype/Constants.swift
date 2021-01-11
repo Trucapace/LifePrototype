@@ -11,14 +11,14 @@ struct K {
     static let gridSpacing: CGFloat = 2.0
     
     static let levelsData: [[String : Any]] = [
-    //  [rows, cols, initially playable]
-        ["rows" : 4, "columns" : 4,"playable" : true],
-        ["rows" : 5, "columns" : 5,"playable" : true],
-        ["rows" : 6, "columns" : 6,"playable" : true],
-        ["rows" : 7, "columns" : 7,"playable" : true],
-        ["rows" : 6, "columns" : 10,"playable" : false],
-        ["rows" : 20, "columns" : 20,"playable" : true],
-        ["rows" : 20, "columns" : 20,"playable" : false]
+    //  [room, rows, cols, initially playable, age target, size target]
+        ["room" : "Beginner", "rows" : 4, "columns" : 4,"playable" : true, "age" : 0, "size" : 0],
+        ["room" : "Beginner", "rows" : 5, "columns" : 5,"playable" : true, "age" : 0, "size" : 0],
+        ["room" : "Beginner", "rows" : 6, "columns" : 6,"playable" : true, "age" : 0, "size" : 0],
+        ["room" : "Intermediate", "rows" : 7, "columns" : 7,"playable" : true, "age" : 0, "size" : 10],
+        ["room" : "Intermediate", "rows" : 6, "columns" : 10,"playable" : false, "age" : 0, "size" : 15],
+        ["room" : "Intermediate", "rows" : 20, "columns" : 20,"playable" : false, "age" : 15, "size" : 0],
+        ["room" : "Intermediate", "rows" : 20, "columns" : 20,"playable" : false, "age" : 20, "size" : 0]
         
         
         

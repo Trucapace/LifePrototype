@@ -46,9 +46,15 @@ class GameViewController: UIViewController {
         
         stopButton.isEnabled = false
         
+        lifeManager!.maxActiveTicks = currentGame?.maxAge ?? -1
+        lifeManager!.maxLifeCount = currentGame?.maxSize ?? -1
+        
+        updateDisplay()
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        
         saveGameData()
         
     }
@@ -59,6 +65,7 @@ class GameViewController: UIViewController {
         
         lifeManager!.updateMatrix()
         updateDisplay()
+        
     }
     
     @IBAction func goButtonPressed(_ sender: UIButton) {
@@ -98,12 +105,14 @@ class GameViewController: UIViewController {
         goButton.isEnabled = true
         stepButton.isEnabled = true
         gridCollectionView.allowsSelection = true
+        
     }
     
     @IBAction func clearButtonPressed(_ sender: UIButton) {
         
         lifeManager?.clearMatrix()
         updateDisplay()
+        
     }
     
     func updateDisplay() {
@@ -125,18 +134,16 @@ class GameViewController: UIViewController {
                 if lifeManager!.maxLifeCount > currentGame!.maxSize {
                     currentGame!.maxSize = lifeManager!.maxLifeCount
                 }
-                
-                
+                if lifeManager!.maxActiveTicks > currentGame!.maxAge {
+                    currentGame!.maxAge = lifeManager!.maxActiveTicks
+                }
             }
         } catch {
             print("Error writing to realm \(error)")
         }
         
 
-        
     }
-    
-
     
 }
 
