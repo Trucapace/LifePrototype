@@ -12,4 +12,14 @@ class Room: Object {
     @objc dynamic var roomName: String = ""
     let games = List<Game>()
     
+    override init() {
+        
+    }
+    
+    init(roomNamer: String) {
+     
+        self.roomName = roomNamer
+        
+    }
+    
 }

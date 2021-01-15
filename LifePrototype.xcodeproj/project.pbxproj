@@ -17,9 +17,9 @@
 		C6AF333A2592E6DB00BDFC6D /* LifeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6AF33392592E6DB00BDFC6D /* LifeManager.swift */; };
 		C6AF3363259BA36A00BDFC6D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6AF3362259BA36A00BDFC6D /* Constants.swift */; };
 		C6AF3370259E521800BDFC6D /* RoomTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6AF336F259E521800BDFC6D /* RoomTableViewController.swift */; };
-		C6AF3374259E538700BDFC6D /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6AF3373259E538700BDFC6D /* Level.swift */; };
 		C6AF338925A26B5500BDFC6D /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6AF338825A26B5500BDFC6D /* Room.swift */; };
 		C6AF338C25A26BD900BDFC6D /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6AF338B25A26BD900BDFC6D /* Game.swift */; };
+		C6CD1E0525AD358D0011E28F /* GameData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6CD1E0425AD358D0011E28F /* GameData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,9 +36,9 @@
 		C6AF33392592E6DB00BDFC6D /* LifeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeManager.swift; sourceTree = "<group>"; };
 		C6AF3362259BA36A00BDFC6D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		C6AF336F259E521800BDFC6D /* RoomTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomTableViewController.swift; sourceTree = "<group>"; };
-		C6AF3373259E538700BDFC6D /* Level.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
 		C6AF338825A26B5500BDFC6D /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
 		C6AF338B25A26BD900BDFC6D /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		C6CD1E0425AD358D0011E28F /* GameData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameData.swift; sourceTree = "<group>"; };
 		FC03F97A07BDA4F845C4266D /* Pods-LifePrototype.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LifePrototype.debug.xcconfig"; path = "Target Support Files/Pods-LifePrototype/Pods-LifePrototype.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -119,8 +119,8 @@
 			children = (
 				C6AF338825A26B5500BDFC6D /* Room.swift */,
 				C6AF338B25A26BD900BDFC6D /* Game.swift */,
-				C6AF3373259E538700BDFC6D /* Level.swift */,
 				C6AF33392592E6DB00BDFC6D /* LifeManager.swift */,
+				C6CD1E0425AD358D0011E28F /* GameData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -253,8 +253,8 @@
 				C6AF338925A26B5500BDFC6D /* Room.swift in Sources */,
 				C6AF33202592A1C400BDFC6D /* AppDelegate.swift in Sources */,
 				C6AF33222592A1C400BDFC6D /* SceneDelegate.swift in Sources */,
-				C6AF3374259E538700BDFC6D /* Level.swift in Sources */,
 				C6AF3370259E521800BDFC6D /* RoomTableViewController.swift in Sources */,
+				C6CD1E0525AD358D0011E28F /* GameData.swift in Sources */,
 				C6AF333A2592E6DB00BDFC6D /* LifeManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

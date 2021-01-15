@@ -21,4 +21,20 @@ class Game: Object {
     
     var parentRoom = LinkingObjects(fromType: Room.self, property: "games")
     
+    override init() {
+        
+    }
+    
+    init(levelNum: Int, numberOfRows: Int, NumberOfColumns: Int, targetSize: Int, targetAge: Int) {
+        
+        self.levelNum = levelNum
+        self.numberOfRows = numberOfRows
+        self.numberOfColumns = NumberOfColumns
+        self.targetSize = targetSize
+        self.targetAge = targetAge
+        
+    }
+ 
+    
+    
 }

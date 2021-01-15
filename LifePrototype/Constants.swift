@@ -11,7 +11,9 @@ struct K {
     static let gridSpacing: CGFloat = 2.0
     
     static let levelsData: [[String : Any]] = [
+        
     //  [room, rows, cols, initially playable, age target, size target]
+        
         ["room" : "Beginner", "rows" : 4, "columns" : 4,"playable" : true, "age" : 0, "size" : 0],
         ["room" : "Beginner", "rows" : 5, "columns" : 5,"playable" : true, "age" : 0, "size" : 0],
         ["room" : "Beginner", "rows" : 6, "columns" : 6,"playable" : true, "age" : 0, "size" : 0],

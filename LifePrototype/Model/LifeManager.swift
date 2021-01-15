@@ -24,6 +24,9 @@ struct LifeManager {
     var maxActiveTicks = 0
     var lifeStatus = "Dead"
     
+    
+    
+    
     init (rows: Int, cols: Int) {
         self.numberOfRows = rows
         self.numberOfColumns = cols

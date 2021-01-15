@@ -11,6 +11,7 @@ import RealmSwift
 class RoomTableViewController: UITableViewController {
     
     let realm = try! Realm()
+    let gameData = GameData()
     
     var rooms: Results<Room>?
     var games: Results<Game>?
@@ -112,35 +113,70 @@ class RoomTableViewController: UITableViewController {
     }
     
     func fillRoom() {
+  
+        let begRoom = Room(roomNamer: "Beginner")
+        let intRoom = Room(roomNamer: "Intermediate")
+        begRoom.roomName = "Beginner"
+        intRoom.roomName = "Intermediate"
         
-        let newRoom = Room()
-        let newRoom2 = Room()
-        newRoom.roomName = "Beginner"
-        newRoom2.roomName = "Intermediate"
-
+                
         do {
             try realm.write {
-                realm.add(newRoom)
-                realm.add(newRoom2)
+                realm.add(begRoom)
+                realm.add(intRoom)
                 print("added new rooms")
             }
         } catch {
             print("Error adding new room \(error)")
         }
-
-
-
-        do {
-            try realm.write {
-                let newGame1 = Game()
-                newGame1.levelNum = 1
-                newGame1.numberOfRows = 10
-                newGame1.numberOfColumns = 10
-                newRoom.games.append(newGame1)
+        
+        for (index, game) in gameData.beginnerGames.enumerated() {
+            
+            do {
+                try realm.write {
+                    game.levelNum = gameData.beginnerGames[index].levelNum
+                    game.numberOfRows = gameData.beginnerGames[index].numberOfRows
+                    game.numberOfColumns = gameData.beginnerGames[index].numberOfColumns
+                    game.targetSize = gameData.beginnerGames[index].targetSize
+                    game.targetAge = gameData.beginnerGames[index].targetAge
+                    begRoom.games.append(game)
+                }
+            } catch {
+                print("Error writing to realm \(error)")
             }
-        } catch {
-            print("Error writing to realm \(error)")
+            
         }
+        
+        
+        
+//        let newRoom = Room()
+//        let newRoom2 = Room()
+//        newRoom.roomName = "Beginner"
+//        newRoom2.roomName = "Intermediate"
+//
+//        do {
+//            try realm.write {
+//                realm.add(newRoom)
+//                realm.add(newRoom2)
+//                print("added new rooms")
+//            }
+//        } catch {
+//            print("Error adding new room \(error)")
+//        }
+//
+//
+//
+//        do {
+//            try realm.write {
+//                let newGame1 = Game()
+//                newGame1.levelNum = 1
+//                newGame1.numberOfRows = 10
+//                newGame1.numberOfColumns = 10
+//                newRoom.games.append(newGame1)
+//            }
+//        } catch {
+//            print("Error writing to realm \(error)")
+//        }
     
         
         
