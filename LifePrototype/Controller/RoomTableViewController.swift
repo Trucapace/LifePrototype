@@ -28,6 +28,14 @@ class RoomTableViewController: UITableViewController {
         }
         
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        tableView.reloadData()
+        print("view appeared")
+    }
+    
+    
+
 
     // MARK: - Table view data source
 
@@ -55,13 +63,16 @@ class RoomTableViewController: UITableViewController {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "LevelCell", for: indexPath)
         
-        let row = games?[indexPath.row].numberOfRows ?? 0
-        let col = games?[indexPath.row].numberOfColumns ?? 0
-        let level = games?[indexPath.row].levelNum ?? 0
         
-        cell.textLabel?.text = "Level \(level) - \(col)x\(row) matrix"
+        let row = rooms?[indexPath.section].games[indexPath.row].numberOfRows ?? 0
+        let col = rooms?[indexPath.section].games[indexPath.row].numberOfColumns ?? 0
+        let level = rooms?[indexPath.section].games[indexPath.row].levelNum ?? 0
+        let age = rooms?[indexPath.section].games[indexPath.row].maxAge ?? 0
+        let size = rooms?[indexPath.section].games[indexPath.row].maxSize ?? 0
         
-        if games?[indexPath.row].metTarget == true {
+        cell.textLabel?.text = "Level \(level) - \(col)x\(row) matrix - Age:  \(age) Size: \(size)"
+        
+        if rooms?[indexPath.section].games[indexPath.row].isPlayable == true {
             cell.textLabel?.textColor = .black
         } else {
             cell.textLabel?.textColor = .lightGray
@@ -75,9 +86,11 @@ class RoomTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if games?[indexPath.row].metTarget == true {
-            selectedGame = games?[indexPath.row]
+        if rooms?[indexPath.section].games[indexPath.row].isPlayable == true {
+            selectedGame = rooms?[indexPath.section].games[indexPath.row]
             performSegue(withIdentifier: "goToGame", sender: self)
+        } else {
+  
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
@@ -91,8 +104,8 @@ class RoomTableViewController: UITableViewController {
         
         if let indexPath = tableView.indexPathForSelectedRow {
             
-            let row = games![indexPath.row].numberOfRows
-            let col = games![indexPath.row].numberOfColumns
+            let row = rooms![indexPath.section].games[indexPath.row].numberOfRows
+            let col = rooms![indexPath.section].games[indexPath.row].numberOfColumns
             
             destinationVC.lifeManager = LifeManager(rows: row, cols: col)
             destinationVC.currentGame = selectedGame
@@ -139,6 +152,7 @@ class RoomTableViewController: UITableViewController {
                     game.numberOfColumns = gameData.beginnerGames[index].numberOfColumns
                     game.targetSize = gameData.beginnerGames[index].targetSize
                     game.targetAge = gameData.beginnerGames[index].targetAge
+                    game.metTarget = gameData.beginnerGames[index].metTarget
                     begRoom.games.append(game)
                 }
             } catch {
@@ -147,37 +161,23 @@ class RoomTableViewController: UITableViewController {
             
         }
         
-        
-        
-//        let newRoom = Room()
-//        let newRoom2 = Room()
-//        newRoom.roomName = "Beginner"
-//        newRoom2.roomName = "Intermediate"
-//
-//        do {
-//            try realm.write {
-//                realm.add(newRoom)
-//                realm.add(newRoom2)
-//                print("added new rooms")
-//            }
-//        } catch {
-//            print("Error adding new room \(error)")
-//        }
-//
-//
-//
-//        do {
-//            try realm.write {
-//                let newGame1 = Game()
-//                newGame1.levelNum = 1
-//                newGame1.numberOfRows = 10
-//                newGame1.numberOfColumns = 10
-//                newRoom.games.append(newGame1)
-//            }
-//        } catch {
-//            print("Error writing to realm \(error)")
-//        }
-    
+        for (index, game) in gameData.intermediateGames.enumerated() {
+            
+            do {
+                try realm.write {
+                    game.levelNum = gameData.intermediateGames[index].levelNum
+                    game.numberOfRows = gameData.intermediateGames[index].numberOfRows
+                    game.numberOfColumns = gameData.intermediateGames[index].numberOfColumns
+                    game.targetSize = gameData.intermediateGames[index].targetSize
+                    game.targetAge = gameData.intermediateGames[index].targetAge
+                    game.metTarget = gameData.intermediateGames[index].metTarget
+                    intRoom.games.append(game)
+                }
+            } catch {
+                print("Error writing to realm \(error)")
+            }
+            
+        }
         
         
     }
