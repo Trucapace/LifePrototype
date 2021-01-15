@@ -18,7 +18,6 @@ class Game: Object {
     @objc dynamic var maxSize: Int = 0
     @objc dynamic var maxAge: Int = 0
     @objc dynamic var metTarget: Bool = false
-    @objc dynamic var isPlayable: Bool = false
     
     var parentRoom = LinkingObjects(fromType: Room.self, property: "games")
     
@@ -26,14 +25,13 @@ class Game: Object {
         
     }
     
-    init(levelNum: Int, numberOfRows: Int, NumberOfColumns: Int, targetSize: Int, targetAge: Int, isPlayable: Bool) {
+    init(levelNum: Int, numberOfRows: Int, NumberOfColumns: Int, targetSize: Int, targetAge: Int) {
         
         self.levelNum = levelNum
         self.numberOfRows = numberOfRows
         self.numberOfColumns = NumberOfColumns
         self.targetSize = targetSize
         self.targetAge = targetAge
-        self.isPlayable = isPlayable
         
     }
  

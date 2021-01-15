@@ -16,7 +16,8 @@ class GameViewController: UIViewController {
     @IBOutlet weak var maxActiveTicksLabel: UILabel!
     @IBOutlet weak var gridCollectionView: UICollectionView!
     @IBOutlet weak var lifeStatusLabel: UILabel!
-   
+    @IBOutlet weak var goalLabel: UILabel!
+    
     @IBOutlet weak var clearButton: UIButton!
     @IBOutlet weak var stopButton: UIButton!
     @IBOutlet weak var stepButton: UIButton!
@@ -46,7 +47,10 @@ class GameViewController: UIViewController {
         
         stopButton.isEnabled = false
         
-        lifeManager!.maxActiveTicks = currentGame?.maxAge ?? -1
+        self.navigationItem.backButtonTitle = "Quit"
+        self.navigationItem.title = "\(currentGame?.numberOfRows ?? 0) x \(currentGame?.numberOfColumns ?? 0)"
+        
+        lifeManager!.maxAge = currentGame?.maxAge ?? -1
         lifeManager!.maxLifeCount = currentGame?.maxSize ?? -1
         
         updateDisplay()
@@ -105,6 +109,7 @@ class GameViewController: UIViewController {
         goButton.isEnabled = true
         stepButton.isEnabled = true
         gridCollectionView.allowsSelection = true
+ 
         
     }
     
@@ -119,9 +124,22 @@ class GameViewController: UIViewController {
                 
         lifeCountLabel.text = "Size: \(lifeManager!.lifeCount) Cells"
         maxLifeCountLabel.text = "Max Size: \(lifeManager!.maxLifeCount) Cells"
-        activeTicksLabel.text = "Age: \(lifeManager!.activeTicks) Days"
-        maxActiveTicksLabel.text = "Max Age: \(lifeManager!.maxActiveTicks) Days"
+        activeTicksLabel.text = "Age: \(lifeManager!.currentAge) Days"
+        maxActiveTicksLabel.text = "Max Age: \(lifeManager!.maxAge) Days"
         lifeStatusLabel.text = "Status: \(lifeManager!.lifeStatus)"
+        
+        
+        if currentGame!.targetAge == 0 && currentGame!.targetSize == 0 {
+            goalLabel.text = "No Goal / Open Play"
+        } else if currentGame!.metTarget == true {
+            goalLabel.text = "GOAL MET!"
+        } else if currentGame!.targetAge > 0 && currentGame!.targetSize > 0 {
+            goalLabel.text = "Goal: \(currentGame!.targetAge) days old and max size of \(currentGame!.targetSize) cells"
+        } else if currentGame!.targetAge == 0 && currentGame!.targetSize > 0 {
+            goalLabel.text = "Goal: Max size of \(currentGame!.targetSize) cells"
+        } else if currentGame!.targetAge > 0 && currentGame!.targetSize == 0 {
+            goalLabel.text = "Goal: \(currentGame!.targetAge) days old"
+        }
         
         gridCollectionView.reloadData()
     
@@ -134,8 +152,12 @@ class GameViewController: UIViewController {
                 if lifeManager!.maxLifeCount > currentGame!.maxSize {
                     currentGame!.maxSize = lifeManager!.maxLifeCount
                 }
-                if lifeManager!.maxActiveTicks > currentGame!.maxAge {
-                    currentGame!.maxAge = lifeManager!.maxActiveTicks
+                if lifeManager!.maxAge > currentGame!.maxAge {
+                    currentGame!.maxAge = lifeManager!.maxAge
+                }
+                if lifeManager!.maxLifeCount >= currentGame!.targetSize && lifeManager!.maxAge >= currentGame!.targetAge {
+                    currentGame!.metTarget = true
+                    
                 }
             }
         } catch {

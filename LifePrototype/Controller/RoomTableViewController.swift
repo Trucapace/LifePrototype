@@ -31,7 +31,7 @@ class RoomTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
-        print("view appeared")
+        
     }
     
     
@@ -72,7 +72,9 @@ class RoomTableViewController: UITableViewController {
         
         cell.textLabel?.text = "Level \(level) - \(col)x\(row) matrix - Age:  \(age) Size: \(size)"
         
-        if rooms?[indexPath.section].games[indexPath.row].isPlayable == true {
+        if indexPath.row == 0 {
+            cell.textLabel?.textColor = .black
+        } else if rooms?[indexPath.section].games[indexPath.row - 1].metTarget == true {
             cell.textLabel?.textColor = .black
         } else {
             cell.textLabel?.textColor = .lightGray
@@ -86,7 +88,10 @@ class RoomTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if rooms?[indexPath.section].games[indexPath.row].isPlayable == true {
+        if indexPath.row == 0 {
+            selectedGame = rooms?[indexPath.section].games[indexPath.row]
+            performSegue(withIdentifier: "goToGame", sender: self)
+        } else if rooms?[indexPath.section].games[indexPath.row - 1].metTarget == true {
             selectedGame = rooms?[indexPath.section].games[indexPath.row]
             performSegue(withIdentifier: "goToGame", sender: self)
         } else {
@@ -127,8 +132,8 @@ class RoomTableViewController: UITableViewController {
     
     func fillRoom() {
   
-        let begRoom = Room(roomNamer: "Beginner")
-        let intRoom = Room(roomNamer: "Intermediate")
+        let begRoom = Room(roomName: "Beginner")
+        let intRoom = Room(roomName: "Intermediate")
         begRoom.roomName = "Beginner"
         intRoom.roomName = "Intermediate"
         

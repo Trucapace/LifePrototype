@@ -16,9 +16,9 @@ class Room: Object {
         
     }
     
-    init(roomNamer: String) {
+    init(roomName: String) {
      
-        self.roomName = roomNamer
+        self.roomName = roomName
         
     }
     

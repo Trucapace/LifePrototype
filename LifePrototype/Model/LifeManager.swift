@@ -20,8 +20,8 @@ struct LifeManager {
     var isActive = false
     var isOscillator = false
     var userChangedGrid = false
-    var activeTicks = 0
-    var maxActiveTicks = 0
+    var currentAge = 0
+    var maxAge = 0
     var lifeStatus = "Dead"
     
     
@@ -39,7 +39,7 @@ struct LifeManager {
     mutating func updateMatrix() {
         
         if userChangedGrid == true {
-            activeTicks = 0
+            currentAge = 0
             userChangedGrid = false
             isActive = false
         }
@@ -52,7 +52,8 @@ struct LifeManager {
         
         lifeCount = countLife(for: newMatrix)
         
-        if lifeCount > maxLifeCount {maxLifeCount = lifeCount}
+
+        
         
         if lifeCount == 0 {
             isActive = false
@@ -77,12 +78,11 @@ struct LifeManager {
         }
         
         if isActive == true && isOscillator == false {
-            activeTicks += 1
-        } else {
-            if activeTicks > maxActiveTicks {
-                maxActiveTicks = activeTicks
-            }
+            currentAge += 1
         }
+        
+        if lifeCount > maxLifeCount {maxLifeCount = lifeCount}
+        if currentAge > maxAge {maxAge = currentAge}
         
         twoOldMatrix = oldMatrix
         oldMatrix = matrix
@@ -138,7 +138,7 @@ struct LifeManager {
             }
         }
 
-        activeTicks = 0
+        currentAge = 0
         lifeCount = 0
         lifeStatus = "Dead"
         
